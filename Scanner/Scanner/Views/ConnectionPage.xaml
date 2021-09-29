@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Scanner.Services"
+             x:Class="Scanner.Views.ConnectionPage"
+             BackgroundColor="White"
+             Title="Scanners">
+
+    <StackLayout>
+        <ListView x:Name="ScannersView"
+            
+            ItemTapped="Handle_ItemTapped"
+            IsRefreshing="True"
+            CachingStrategy="RecycleElement"
+            ItemsSource="{Binding Scanners}">
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ImageCell Text="{Binding DeviceName}"
+                           TextColor="Blue"
+                           Detail="{Binding ScannerName}"
+                           DetailColor="Black"
+                           ImageSource="{local:ImageResource Scanner.Resources.Scanner.png}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+        </ListView>
+    </StackLayout>
+
+</ContentPage>

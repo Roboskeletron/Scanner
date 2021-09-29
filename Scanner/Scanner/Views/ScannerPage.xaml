@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Scanner.Views.ScannerPage"
+             xmlns:local="clr-namespace:Scanner.Services"
+             Title="{Binding ScannerName}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            IconImageSource="{local:ImageResource Scanner.Resources.add.png}"
+            Clicked="Add_Clicked"/>
+        <ToolbarItem
+            IconImageSource="{local:ImageResource Scanner.Resources.delete.png}"
+            Command="{Binding DeleteCommand}"
+            IsEnabled="{Binding CanSaveOrDelete}"/>
+        <ToolbarItem
+            IconImageSource="{local:ImageResource Scanner.Resources.save.png}"
+            Command="{Binding SaveCommand}"
+            IsEnabled="{Binding CanSaveOrDelete}"/>
+    </ContentPage.ToolbarItems>
+    
+    <ContentPage.Content>
+        <StackLayout
+            Padding="10,10,10,10">
+            <CarouselView
+                ItemsSource="{Binding Images}"
+                EmptyView="No images scanned"
+                CurrentItem="{Binding CurrentImage}"
+                Loop="False">
+                <CarouselView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame>
+                            <Image Aspect="AspectFit"
+                                   Source="{Binding ImageSource}"/>
+                        </Frame>
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
