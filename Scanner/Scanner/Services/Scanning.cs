@@ -10,7 +10,7 @@ namespace Scanner.Services
 {
     static class Scanning
     {
-        public static int BufferSize { get; set; } = 1024;
+        public static int BufferSize { get; set; } = 2048;
 
         private static UdpClient udpClient = new UdpClient();
         private static readonly string endMessage = "\nDataSent";

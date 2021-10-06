@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scanner.Android", "Scanner\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scanner.iOS", "Scanner\Scanner.iOS\Scanner.iOS.csproj", "{388A6454-AA2C-41CF-846A-428AC1210B32}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scanner", "Scanner\Scanner\Scanner.csproj", "{036D4A71-2B3F-4831-8C99-5399112B81DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scanner", "Scanner\Scanner\Scanner.csproj", "{036D4A71-2B3F-4831-8C99-5399112B81DF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

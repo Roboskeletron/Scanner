@@ -19,10 +19,12 @@ namespace Scanner.Views
             InitializeComponent();
 
             this.viewModel = viewModel;
-            
-            BindingContext = viewModel;
+        }
 
-            viewModel.CanSaveOrDelete = false;
+        protected override async void OnAppearing()
+        {
+            await Task.Delay(10);
+            BindingContext = viewModel;
         }
 
         private void Add_Clicked(object sender, EventArgs e)
