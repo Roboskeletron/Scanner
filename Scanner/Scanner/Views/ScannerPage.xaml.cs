@@ -19,11 +19,7 @@ namespace Scanner.Views
             InitializeComponent();
 
             this.viewModel = viewModel;
-        }
 
-        protected override async void OnAppearing()
-        {
-            await Task.Delay(10);
             BindingContext = viewModel;
         }
 
