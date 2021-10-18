@@ -60,11 +60,12 @@ namespace Scanner.ViewModels
             SaveCommand = new Command(execute: async () =>
             {
                 IFileSystem fileSystem = DependencyService.Get<IFileSystem>();
+                byte[] pdf = null;
                 await Task.Run(() =>
                 {
-                    byte[] pdf = PdfCreator.CreatePdf(Images);
-                    fileSystem.SavePdf(pdf);
+                    pdf = PdfCreator.CreatePdf(Images);
                 });
+                fileSystem.SavePdf(pdf);
             },
             canExecute: () =>
             {

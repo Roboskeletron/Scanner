@@ -13,19 +13,22 @@ namespace Scanner.UWP
 {
     public class FileSaver : Services.IFileSystem
     {
-        public static byte[] PdfData;
 
-        public void SavePdf(byte[] data)
+        public async void SavePdf(byte[] data)
         {
-            PdfData = data;
-            _ = CoreApplication.CreateNewView().DispatcherQueue.TryEnqueue(() =>
+            FileSavePicker picker = new FileSavePicker();
+            picker.FileTypeChoices.Add("PDF document", new List<string> { ".pdf" });
+            picker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
+            picker.SuggestedFileName = "New document";
+
+            StorageFile file = await picker.PickSaveFileAsync();
+
+            if (file != null)
             {
-                // This code runs on the new thread
-                Windows.UI.Xaml.Controls.Frame frame = new Windows.UI.Xaml.Controls.Frame();
-                frame.Navigate(typeof(SaverPage), data);
-                Window.Current.Content = frame;
-                Window.Current.Activate();
-            });
+                CachedFileManager.DeferUpdates(file);
+                await FileIO.WriteBytesAsync(file, data);
+                await CachedFileManager.CompleteUpdatesAsync(file);
+            }
         }
     }
 }
