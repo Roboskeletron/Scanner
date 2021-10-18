@@ -10,33 +10,35 @@ namespace Scanner.Services
 {
     static class Scanning
     {
-        public static int BufferSize { get; set; } = 2048;
-
-        private static UdpClient udpClient = new UdpClient();
-        private static readonly string endMessage = "\nDataSent";
+        public static int BufferSize { get; set; } = 1024;
+        public static int Port { get; set; } = 8012;
 
         public static async Task<byte[]> ScannImage(IPEndPoint endPoint)
         {
+            UdpClient udpClient = new UdpClient();
             udpClient.Connect(endPoint);
-            byte[] req = Encoding.UTF8.GetBytes("Scann req");
+            TcpListener tcpListener = new TcpListener(Port);
+            tcpListener.Start();
+
+            byte[] req = Encoding.UTF8.GetBytes("SR " + Port.ToString());
             await udpClient.SendAsync(req, req.Length);
+            var client = await tcpListener.AcceptTcpClientAsync();
 
             MemoryStream dataStream = new MemoryStream();
-            byte[] data = new byte[BufferSize];
-
-            await Task.Run(delegate
+            NetworkStream networkStream = client.GetStream();
+            do
             {
-                bool isEnd = false;
-                do
-                {
-                    data = udpClient.Receive(ref endPoint);
-                    isEnd = Encoding.UTF8.GetString(data) != endMessage;
-                    if (isEnd)
-                        dataStream.Write(data, 0, data.Length);
-                } while (isEnd);
+                byte[] data = new byte[BufferSize];
 
-                dataStream.Flush();
-            });
+                await networkStream.ReadAsync(data, 0, data.Length);
+
+                await dataStream.WriteAsync(data, 0, data.Length);
+            } while (networkStream.DataAvailable);
+            
+            await dataStream.FlushAsync();
+            networkStream.Close();
+            client.Close();
+            tcpListener.Stop();
 
             return dataStream.ToArray();
         }
