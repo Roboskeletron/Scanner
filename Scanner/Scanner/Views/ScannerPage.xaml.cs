@@ -10,7 +10,7 @@ using Xamarin.Forms.Xaml;
 namespace Scanner.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ScannerPage : ContentPage
+    public partial class ScannerPage : CarouselPage
     {
         private ScannerPageViewModel viewModel = null;
 
