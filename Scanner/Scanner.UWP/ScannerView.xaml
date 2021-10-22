@@ -1,0 +1,46 @@
+﻿<Page
+    x:Class="Scanner.UWP.ScannerView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:forms="using:Scanner.Models"
+    xmlns:local="using:Scanner.UWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <UserControl.Resources>
+        <local:ImageConvener x:Key="ImageConventer"/>
+    </UserControl.Resources>
+
+    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <CommandBar VerticalAlignment="Top">
+            <CommandBar.Content>
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Name="BackButton"
+                        Style="{StaticResource NavigationBackButtonNormalStyle}"
+                        IsEnabled="{x:Bind Frame.CanGoBack, Mode=OneWay}"
+                        Click="BackButton_Click"
+                        VerticalAlignment="Top"/>
+                    <TextBlock Text="{x:Bind Path=ViewModel.ScannerName, Mode=OneTime}" VerticalAlignment="Center"/>
+                </StackPanel>
+            </CommandBar.Content>
+
+            <AppBarButton Icon="Add" Click="AppBarButton_Click"/>
+            <AppBarButton Icon="Delete" Command="{x:Bind Path=ViewModel.DeleteCommand, Mode=OneWay}"/>
+            <AppBarButton Icon="Save" Command="{x:Bind Path=ViewModel.SaveCommand, Mode=OneWay}"/>
+        </CommandBar>
+        <FlipView
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            ItemsSource="{x:Bind Path=ViewModel.Images}"
+            SelectedItem="{x:Bind Path=ViewModel.CurrentImage, Mode=TwoWay}"
+            SelectionChanged="FlipView_SelectionChanged">
+            <FlipView.ItemTemplate>
+                <DataTemplate x:DataType="forms:Image">
+                    <Image Source="{x:Bind Path=Data, Mode=OneWay, Converter={StaticResource ImageConventer}}" Stretch="Uniform"/>
+                </DataTemplate>
+            </FlipView.ItemTemplate>
+        </FlipView>
+    </StackPanel>
+</Page>

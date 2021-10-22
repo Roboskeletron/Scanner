@@ -45,7 +45,14 @@ namespace Scanner.Views
 
             ((ListView)sender).SelectedItem = null;
 
-            await Navigation.PushAsync(new ScannerPage(scannerPageViewModel));
+            if (Device.RuntimePlatform == Device.UWP)
+            {
+                DependencyService.Get<Services.IPage>().GetScannerPage(scannerPageViewModel);
+            }
+            else
+            {
+                await Navigation.PushAsync(new ScannerPage(scannerPageViewModel));
+            }
         }
 
         private void Handle_ItemUpdate(object sender, EventArgs e)
