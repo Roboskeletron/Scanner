@@ -17,10 +17,8 @@ namespace Scanner.Services
                 PdfPage page = document.AddPage();
                 XGraphics graphics = XGraphics.FromPdfPage(page);
                 XImage xImage = XImage.FromStream(() => new MemoryStream(image.Data));
-                page.Height = xImage.PixelHeight;
-                page.Width = xImage.PixelWidth;
-                //double x = (250 - xImage.PixelWidth * 72 / xImage.HorizontalResolution) / 2;
-                graphics.DrawImage(xImage, 0, 0);
+                page.Size = PdfSharpCore.PageSize.A4;
+                graphics.DrawImage(xImage, 0, 0, page.Width, page.Height);
                 graphics.Save();
                 page.Close();
             }
