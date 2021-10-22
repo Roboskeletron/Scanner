@@ -34,8 +34,7 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             ItemsSource="{x:Bind Path=ViewModel.Images}"
-            SelectedItem="{x:Bind Path=ViewModel.CurrentImage, Mode=TwoWay}"
-            SelectionChanged="FlipView_SelectionChanged">
+            SelectedItem="{x:Bind Path=ViewModel.CurrentImage, Mode=TwoWay}">
             <FlipView.ItemTemplate>
                 <DataTemplate x:DataType="forms:Image">
                     <Image Source="{x:Bind Path=Data, Mode=OneWay, Converter={StaticResource ImageConventer}}" Stretch="Uniform"/>

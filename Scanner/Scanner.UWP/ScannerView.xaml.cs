@@ -22,17 +22,12 @@ namespace Scanner.UWP
     /// </summary>
     public sealed partial class ScannerView : Page
     {
-        public Scanner.ViewModels.ScannerPageViewModel ViewModel { get; set; }
+        public ViewModels.ScannerPageViewModel ViewModel { get; set; }
 
         public ScannerView()
         {
             this.InitializeComponent();
             ViewModel = PageService.viewModel;
-            
-        }
-
-        private void FlipView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
             
         }
 
