@@ -10,7 +10,7 @@ namespace Scanner.Services
 {
     static class Scanning
     {
-        public static int BufferSize { get; set; } = 1024;
+        public static int BufferSize { get; set; } = 4096;
         public static int Port { get; set; } = 8012;
 
         public static async Task<byte[]> ScannImage(IPEndPoint endPoint)
@@ -22,6 +22,7 @@ namespace Scanner.Services
 
             byte[] req = Encoding.UTF8.GetBytes("SR " + Port.ToString());
             await udpClient.SendAsync(req, req.Length);
+            int byteCount = Convert.ToInt32(Encoding.UTF8.GetString(udpClient.Receive(ref endPoint)));
             var client = await tcpListener.AcceptTcpClientAsync();
 
             MemoryStream dataStream = new MemoryStream();
@@ -30,10 +31,11 @@ namespace Scanner.Services
             {
                 byte[] data = new byte[BufferSize];
 
-                await networkStream.ReadAsync(data, 0, data.Length);
+                int count = await networkStream.ReadAsync(data, 0, data.Length);
 
-                await dataStream.WriteAsync(data, 0, data.Length);
-            } while (networkStream.DataAvailable);
+                await dataStream.WriteAsync(data, 0, count);
+                byteCount -= count;
+            } while (byteCount > 0);
             
             await dataStream.FlushAsync();
             networkStream.Close();
