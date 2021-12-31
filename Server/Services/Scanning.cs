@@ -30,7 +30,8 @@ namespace Server.Services
                 return null;
             Scanner = await ImageScanner.FromIdAsync(device.Id);
             Scanner.FlatbedConfiguration.Format = ImageScannerFormat.Jpeg;
-            Scanner.FlatbedConfiguration.DesiredResolution = new ImageScannerResolution() { DpiX = 600, DpiY = 600 };
+            Scanner.FlatbedConfiguration.DesiredResolution = new ImageScannerResolution() { DpiX = 1200, DpiY = 1200 };
+            
             return device.Name;
         }
     }

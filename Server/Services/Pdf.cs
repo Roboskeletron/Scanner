@@ -10,16 +10,15 @@ namespace Server.Services
         public static byte[] CreatePdf(IEnumerable<Models.Image> images)
         {
             PdfDocument document = new PdfDocument();
-            document.Sections.Add();
             foreach (var image in images)
             {
-                PdfPageBase page = document.Pages.Add();
-                PdfImage pdfImage = PdfImage.FromStream(image.Stream.AsStream());
-                page.Canvas.DrawImage(pdfImage, 0, 0, page.Size.Width, page.Size.Height);
+                PdfPageBase page = document.Pages.Add(PdfPageSize.A4, new PdfMargins(0));
+                PdfImage pdfImage = PdfImage.FromStream(new MemoryStream(image.Data));
+                page.Canvas.DrawImage(pdfImage, 0, 0, page.ActualSize.Width, page.ActualSize.Height);
             }
-            document.Close();
             MemoryStream stream = new MemoryStream();
             document.SaveToStream(stream);
+            document.Close();
             return stream.ToArray();
         }
     }
