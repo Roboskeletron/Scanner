@@ -39,10 +39,12 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Beacon.cs" />
+    <Compile Include="Models\AppContext.cs" />
+    <Compile Include="Services\AppDataManager.cs" />
+    <Compile Include="Services\Beacon.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Scanner.cs" />
-    <Compile Include="Server.cs" />
+    <Compile Include="Services\Scanner.cs" />
+    <Compile Include="Services\Server.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
@@ -61,6 +63,9 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\HomeServer.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -9,7 +9,7 @@ namespace Server.Services
     static class Beacon
     {
         public static string DeviceName { get; private set; } = Dns.GetHostName();
-        public static string ScanerName { get; set; }
+        public static string ScanerName { get; set; } = null;
         public static int Port { get; set; } = 8000;
         public static int Timeout { get; set; } = 500;
         public static byte[] Datagram

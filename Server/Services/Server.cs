@@ -26,8 +26,8 @@ namespace Server.Services
         public static Queue<UdpReceiveResult> queue = new Queue<UdpReceiveResult>();
         public static int BufferSize { get; set; } = 4096;
 
-        private static UdpClient udpClient = new UdpClient(port);
         private static int port = 7777;
+        private static UdpClient udpClient = new UdpClient(port);
 
         private static async void Receive()
         {
