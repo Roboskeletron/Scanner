@@ -22,7 +22,11 @@ namespace Scanner.Services
 
             byte[] req = Encoding.UTF8.GetBytes("SR " + Port.ToString());
             await udpClient.SendAsync(req, req.Length);
-            int byteCount = Convert.ToInt32(Encoding.UTF8.GetString(udpClient.Receive(ref endPoint)));
+            int byteCount = 0;
+            await Task.Run(() =>
+            {
+                byteCount = Convert.ToInt32(Encoding.UTF8.GetString(udpClient.Receive(ref endPoint)));
+            });
             var client = await tcpListener.AcceptTcpClientAsync();
 
             MemoryStream dataStream = new MemoryStream();
