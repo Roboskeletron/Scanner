@@ -32,6 +32,7 @@ namespace Scanner.ViewModels
 
         public ICommand DeleteCommand { get; private set; }
         public ICommand SaveCommand { get; private set; }
+        public ICommand AddCommand { get; private set; }
         public event PropertyChangedEventHandler PropertyChanged;
 
         private System.Net.IPEndPoint endPoint;
@@ -71,6 +72,8 @@ namespace Scanner.ViewModels
             {
                 return CanSaveOrDelete;
             });
+
+            AddCommand = new Command(ScannImage);
         }
 
         private void Images_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)

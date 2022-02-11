@@ -7,7 +7,7 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem
             IconImageSource="{local:ImageResource Scanner.Resources.add.png}"
-            Clicked="Add_Clicked"/>
+            Command="{Binding AddCommand}"/>
         <ToolbarItem
             IconImageSource="{local:ImageResource Scanner.Resources.delete.png}"
             Command="{Binding DeleteCommand}"/>

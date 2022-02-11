@@ -22,10 +22,5 @@ namespace Scanner.Views
 
             BindingContext = viewModel;
         }
-
-        private void Add_Clicked(object sender, EventArgs e)
-        {
-            viewModel.ScannImage();
-        }
     }
 }
